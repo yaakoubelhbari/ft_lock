@@ -6,9 +6,8 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/42-ft__lock-00BABC?style=for-the-badge" alt="42 ft_lock" />
-  <img src="https://img.shields.io/badge/no%20sudo-required-green?style=for-the-badge" alt="No Sudo" />
-  <a href="https://instagram.com/yaakoubelhbari"><img src="https://img.shields.io/badge/%20-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
-  <a href="https://linkedin.com/in/yaakoubelhbari"><img src="https://img.shields.io/badge/%20-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://instagram.com/yaakoubelhbari"><img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&style=for-the-badge" alt="Instagram" /></a>
+  <a href="https://linkedin.com/in/yaakoubelhbari"><img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0A66C2&logoColor=white&style=for-the-badge" alt="LinkedIn" /></a>
 </p>
 
 ---

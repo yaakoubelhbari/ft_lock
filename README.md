@@ -304,9 +304,6 @@ grep -q "^ft_lock\.geometry:" ~/.Xresources \
 xrdb ~/.Xresources
 ```
 
-> [!TIP]
-> Pair this with `ft_lock.iconify: false` (see [Iconify Windows](#-iconify-windows)) so your open windows stay visible instead of being minimized. To unlock, simply type your password blindly and press <kbd>Enter</kbd>.
-
 **Delete**
 ```bash
 sed -i '/^ft_lock\.geometry:/d' ~/.Xresources

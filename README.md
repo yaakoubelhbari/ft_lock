@@ -19,6 +19,13 @@ The campus lock screen (`/usr/share/42/ft_lock`) reads per‑user settings from 
 You edit that file, reload it, and lock — done.
 
 > [!IMPORTANT]
+> **`~/.Xresources` is missing by default!**  
+> On fresh campus accounts, `~/.Xresources` does not exist. Commands like `sed -i` will fail if the file does not exist. Run this once before configuring anything:
+> ```bash
+> touch ~/.Xresources
+> ```
+>
+> **Rules to remember:**
 > - Every option uses the prefix `ft_lock.<option>:` in `~/.Xresources`.
 > - Background images **must** be `.jpg` / `.jpeg` with an **absolute path** (`/home/<login>/…`, not `~/…`).
 > - After any change run `xrdb ~/.Xresources`, then press <kbd>Super</kbd> + <kbd>L</kbd> to test.
@@ -28,6 +35,9 @@ You edit that file, reload it, and lock — done.
 ## ⚡ Quick Start
 
 ```bash
+# 0. Ensure ~/.Xresources exists (missing by default!)
+touch ~/.Xresources
+
 # 1. Set a background image
 sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
 echo "ft_lock.image_file: /home/<your_login>/Pictures/lock.jpg" >> ~/.Xresources
@@ -283,6 +293,19 @@ sed -i '/^ft_lock\.geometry:/d' ~/.Xresources
 echo "ft_lock.geometry: 1920x1080+0+0" >> ~/.Xresources
 xrdb ~/.Xresources
 ```
+
+**Hide the lock screen entirely (render 1x1 off-screen)**
+
+Renders the lock window at 1x1 pixel far off-screen so the lock screen is completely hidden while still locking your session:
+```bash
+grep -q "^ft_lock\.geometry:" ~/.Xresources \
+  && sed -i 's/^ft_lock\.geometry:.*/ft_lock.geometry: 1x1+9999+9999/' ~/.Xresources \
+  || echo "ft_lock.geometry: 1x1+9999+9999" >> ~/.Xresources
+xrdb ~/.Xresources
+```
+
+> [!TIP]
+> Pair this with `ft_lock.iconify: false` (see [Iconify Windows](#-iconify-windows)) so your open windows stay visible instead of being minimized. To unlock, simply type your password blindly and press <kbd>Enter</kbd>.
 
 **Delete**
 ```bash

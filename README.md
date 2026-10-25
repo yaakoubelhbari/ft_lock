@@ -130,34 +130,6 @@ sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
 xrdb -remove && xrdb -merge ~/.Xresources
 ```
 
-<details id="troubleshooting">
-<summary><a id="troubleshooting"></a><b>🚨 Troubleshooting: Lock Screen Won't Lock?</b></summary>
-
-> **🚨 Symptoms:**
-> - ❌ Clicking the **lock icon** does nothing.
-> - ❌ Running `ft_lock` in the terminal silently exits without locking.
-> - ❌ The desktop **cannot be locked at all**!
-
-#### Why does this happen?
-`ft_lock` crashes silently when it fails to load the background image. The most common causes are:
-1. **Using a `.png` image:** `ft_lock` only supports `.jpg` / `.jpeg`.
-2. **Using a relative path:** Using `~/...` instead of the full absolute path (`/home/<your_login>/...`).
-3. **Invalid or non-existent file path:** Misspelled filename or directory.
-
-#### How to fix it
-
-**Remove the background line (Instant Fix)**  
-Delete the `ft_lock.image_file` line from `~/.Xresources` and reload the X11 database to restore the default 42 logo lock screen:
-
-```bash
-sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
-xrdb -remove && xrdb -merge ~/.Xresources
-```
-
-Press the lock icon — your lock screen will work again immediately!
-
-</details>
-
 ---
 
 ### 📍 Prompt Position
@@ -381,6 +353,36 @@ xrdb ~/.Xresources
 sed -i '/^ft_lock\.title:/d' ~/.Xresources
 xrdb -remove && xrdb -merge ~/.Xresources
 ```
+
+---
+
+## 🚨 Troubleshooting: Lock Screen Won't Lock? <a id="troubleshooting"></a>
+
+> [!CAUTION]
+> **Symptoms:**
+> - ❌ Clicking the **lock icon** does nothing.
+> - ❌ Running `ft_lock` in the terminal silently exits without locking.
+> - ❌ The desktop **cannot be locked at all**!
+
+### Why does this happen?
+`ft_lock` crashes silently when it fails to load the background image. The most common causes are:
+1. **Using a `.png` image:** `ft_lock` only supports `.jpg` / `.jpeg`.
+2. **Using a relative path:** Using `~/...` instead of the full absolute path (`/home/<your_login>/...`).
+3. **Invalid or non-existent file path:** Misspelled filename or directory.
+
+---
+
+### How to fix it
+
+#### Remove the background line (Instant Fix)
+Delete the `ft_lock.image_file` line from `~/.Xresources` and reload the X11 database to restore the default 42 logo lock screen:
+
+```bash
+sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
+xrdb -remove && xrdb -merge ~/.Xresources
+```
+
+Press the lock icon — your lock screen will work again immediately!
 
 ---
 

@@ -27,7 +27,7 @@ You edit that file, reload it, and lock — done.
 >
 > **Rules to remember:**
 > - Every option uses the prefix `ft_lock.<option>:` in `~/.Xresources`.
-> - Background images **must** be `.jpg` / `.jpeg` with an **absolute path** (`/home/<login>/…`, not `~/…`).
+> - Background images **must** be `.jpg` / `.jpeg` with an **absolute path** (`/home/<login>/…`, not `~/…`). **Never use `.png` or invalid paths** — this breaks locking completely (GNOME lock icon and terminal command stop working). See [Troubleshooting](#troubleshooting).
 > - After any change run `xrdb ~/.Xresources`, then press <kbd>Super</kbd> + <kbd>L</kbd> to test.
 
 ---
@@ -35,7 +35,7 @@ You edit that file, reload it, and lock — done.
 ## ⚡ Quick Start
 
 ```bash
-# 0. Ensure ~/.Xresources exists (missing by default!)
+# 0. Ensure ~/.Xresources exists
 touch ~/.Xresources
 
 # 1. Set a background image
@@ -62,7 +62,7 @@ Then press <kbd>Super</kbd> + <kbd>L</kbd> to see your new lock screen!
 
 | Key | Description | Default |
 | :--- | :--- | :---: |
-| `ft_lock.image_file` | Absolute path to a `.jpg` background | 42 logo |
+| `ft_lock.image_file` | Absolute path to `.jpg` background (**JPG only, NOT PNG**) | 42 logo |
 | `ft_lock.aff_geometry` | Center anchor of the prompt (`+X+Y`) | top‑left |
 | `ft_lock.text` | Subtitle above the password box | `Back sOOn..` |
 | `ft_lock.xft_colorname` | Text & box color (`#RRGGBB` or X11 name) | grey |
@@ -94,6 +94,14 @@ Every section below shows how to **set** an option and how to **delete** it (res
 
 Must be a `.jpg` / `.jpeg` with a full absolute path.
 
+> [!WARNING]
+> **🚨 Using `.png` or an invalid/missing image breaks `ft_lock` entirely!**  
+> If `ft_lock.image_file` points to a `.png` or an invalid/corrupted `.jpg`:
+> - ❌ The desktop **cannot be locked**.
+> - ❌ The lock icon **stops working**.
+>
+> **Quick Fix:** Remove the background variable line or replace it with a valid `.jpg` image (see [Troubleshooting](#troubleshooting)).
+
 <details>
 <summary><b>💡 Tip — convert & resize any image to 1920×1080 JPG</b></summary>
 
@@ -116,11 +124,40 @@ echo "ft_lock.image_file: /home/<your_login>/Pictures/Wallpapers/lock.jpg" >> ~/
 xrdb ~/.Xresources
 ```
 
-**Delete**
+**Delete** *(restores default 42 logo background)*
 ```bash
 sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
 xrdb -remove && xrdb -merge ~/.Xresources
 ```
+
+<details id="troubleshooting">
+<summary><a id="troubleshooting"></a><b>🚨 Troubleshooting: Lock Screen Won't Lock?</b></summary>
+
+> [!CAUTION]
+> **Symptoms:**
+> - Clicking the **lock icon** does nothing.
+> - Running `ft_lock` in the terminal silently exits without locking.
+> - The desktop **cannot be locked at all**!
+
+#### Why does this happen?
+`ft_lock` crashes silently when it fails to load the background image. The most common causes are:
+1. **Using a `.png` image:** `ft_lock` only supports `.jpg` / `.jpeg`.
+2. **Using a relative path:** Using `~/...` instead of the full absolute path (`/home/<login>/...`).
+3. **Invalid or non-existent file path:** Misspelled filename or directory.
+
+#### How to fix it
+
+**Remove the background line (Instant Fix)**  
+Delete the `ft_lock.image_file` line from `~/.Xresources` and reload the X11 database to restore the default 42 logo lock screen:
+
+```bash
+sed -i '/^ft_lock\.image_file:/d' ~/.Xresources
+xrdb -remove && xrdb -merge ~/.Xresources
+```
+
+Press the lock icon — your lock screen will work again immediately!
+
+</details>
 
 ---
 

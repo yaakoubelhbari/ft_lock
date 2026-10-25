@@ -133,16 +133,15 @@ xrdb -remove && xrdb -merge ~/.Xresources
 <details id="troubleshooting">
 <summary><a id="troubleshooting"></a><b>🚨 Troubleshooting: Lock Screen Won't Lock?</b></summary>
 
-> [!CAUTION]
-> **Symptoms:**
-> - Clicking the **lock icon** does nothing.
-> - Running `ft_lock` in the terminal silently exits without locking.
-> - The desktop **cannot be locked at all**!
+> **🚨 Symptoms:**
+> - ❌ Clicking the **lock icon** does nothing.
+> - ❌ Running `ft_lock` in the terminal silently exits without locking.
+> - ❌ The desktop **cannot be locked at all**!
 
 #### Why does this happen?
 `ft_lock` crashes silently when it fails to load the background image. The most common causes are:
 1. **Using a `.png` image:** `ft_lock` only supports `.jpg` / `.jpeg`.
-2. **Using a relative path:** Using `~/...` instead of the full absolute path (`/home/<login>/...`).
+2. **Using a relative path:** Using `~/...` instead of the full absolute path (`/home/<your_login>/...`).
 3. **Invalid or non-existent file path:** Misspelled filename or directory.
 
 #### How to fix it
